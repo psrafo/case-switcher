@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Caser</title>
+	</head>
+	<body>
+		<style type='text/css'>
+			
+			body {
+				background-color: #e9e9e9;
+			}
+			
+			textarea {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: 100%;
+				min-height: 170px;
+			}
+			
+			#clear_in {padding: 8px 13px; font-size: 17px;}
+			
+			* {font-family: arial;}
+		</style>
+		<textarea id='stdin'></textarea>
+		<button id='clear_in'>CLEAR</button>
+		
+		<div style='height: 30px;'></div>
+		<textarea id='stdout'></textarea>
+		
+		<hr>
+		
+		<input checked id='c_upper' type='radio' name='case' value='uppercase'> <label for='c_upper'>VEL, A DAPIBUS ALIQUET ET. (UPPER CASE)</label><br>
+		<input id='c_lower' type='radio' name='case' value='lowercase'> <label for='c_lower'>lel, a dapibus aliquet et.. (LOWER	 CASE)</label><br>
+		<input id='c_cap' type='radio' name='case' value='capitalize'> <label for='c_cap'>Vel, A Dapibus Aliquet Et.. (CAPITALIZE)</label>
+		
+		<script>
+			function getRadioCheckedValue(radio_name)
+			{
+				oRadio = document.getElementsByName(radio_name);
+				for(i = 0; i < oRadio.length; i++)
+					if(oRadio[i].checked)
+						return oRadio[i].value;
+				return "";
+			}
+			
+			function proceed()
+			{
+				document.getElementById("stdout").value = document.getElementById("stdin").value.toLowerCase();
+				p = getRadioCheckedValue("case");
+				document.getElementById("stdout").style["textTransform"] = p;
+			}
+			
+			document.addEventListener("DOMContentLoaded", function() {
+				
+				document.getElementById("clear_in").addEventListener("click", function() {
+					document.getElementById("stdin").value = "";
+					proceed();
+				});
+				
+				arr = document.getElementsByName("case");
+				for(i = 0; i < arr.length; i++)
+					arr[i].addEventListener("change", proceed);
+				
+				document.getElementById("stdin").addEventListener("keyup", proceed);
+				
+				document.getElementById("stdout").addEventListener("click", function() {
+					this.select();
+				});
+			});
+		</script>
+		
+	</body>
+</html>
